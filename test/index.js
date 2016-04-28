@@ -14,7 +14,6 @@ describe('express-jade-cache-helper', function() {
     fs.rmdir(templateDir + 'tmp_templates', function() {
       ncp(templateDir + 'master_templates', templateDir + 'tmp_templates', function(){
         ncp(templateDir + 'master_templates/sub', templateDir + 'tmp_templates/sub', function(){
-          console.log(1);
           done();
         });
       });
@@ -82,7 +81,6 @@ describe('express-jade-cache-helper', function() {
         };
         jadeCacheHelper(fakeApp, {debug: true});
         jadeCacheHelper(fakeApp, {debug: false});
-        console.log(2);
       });
     });
   });
