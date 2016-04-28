@@ -2,6 +2,7 @@ var fs = require('fs');
 var expect = require('chai').expect;
 var superagent = require('superagent');
 var app = require('./fixture/app.js');
+var jadeCacheHelper = require('../');
 var ncp = require('ncp').ncp;
 
 describe('express-jade-cache-helper', function() {
@@ -11,8 +12,11 @@ describe('express-jade-cache-helper', function() {
 
   beforeEach(function(done) {
     fs.rmdir(templateDir + 'tmp_templates', function() {
-      ncp(templateDir + 'templates_master', templateDir + 'tmp_templates', function(){
-        done();
+      ncp(templateDir + 'master_templates', templateDir + 'tmp_templates', function(){
+        ncp(templateDir + 'master_templates/sub', templateDir + 'tmp_templates/sub', function(){
+          console.log(1);
+          done();
+        });
       });
     });
   });
@@ -20,8 +24,10 @@ describe('express-jade-cache-helper', function() {
   it('should render "home"', function(done) {
     var server = app().listen(1234, function() {
       superagent.get('http://localhost:1234/home').end(function(err, res){
-        expect(res.text).to.equal('<p>test</p>');
-        server.close(done);
+        fs.unlink(templateDir + 'tmp_templates/show.jade', function(){
+          expect(res.text).to.equal('<p>test</p>');
+          server.close(done);
+        });
       });
     });
   });
@@ -29,8 +35,10 @@ describe('express-jade-cache-helper', function() {
   it('should render "sub home"', function(done) {
     var server = app().listen(1234, function() {
       superagent.get('http://localhost:1234/sub_home').end(function(err, res){
-        expect(res.text).to.equal('<p>test sub</p>');
-        server.close(done);
+        fs.unlink(templateDir + 'tmp_templates/sub/test.jade', function(){
+          expect(res.text).to.equal('<p>test sub</p>');
+          server.close(done);
+        });
       });
     });
   });
@@ -56,4 +64,26 @@ describe('express-jade-cache-helper', function() {
     loadSite(done, true, '<p>test live swap</p>');
   });
 
+
+  describe('options', function(){
+    describe('debug', function(){
+      it('on/off', function(){
+        var fakeApp = {
+          cache: {},
+          on: function(event, cb) {
+            cb();
+          },
+          enabled: function() {
+            return true;
+          },
+          get: function() {
+            return templateDir + 'tmp_templates';
+          }
+        };
+        jadeCacheHelper(fakeApp, {debug: true});
+        jadeCacheHelper(fakeApp, {debug: false});
+        console.log(2);
+      });
+    });
+  });
 });

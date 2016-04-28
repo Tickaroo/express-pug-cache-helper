@@ -7,7 +7,7 @@ module.exports = function(app, opts) {
     return app;
   }
   var options = Object.assign({
-    jadeExt: 'jade'
+    jadeExt: '.jade' // the leading dot is very important
   }, opts);
   app.on('mount', function() {
     var compileJadeFromDir = function(dir) {
@@ -19,7 +19,9 @@ module.exports = function(app, opts) {
           return;
         }
         if (path.extname(filepath) !== options.jadeExt) {
-          // console.warn(file + ' is not a jade file');
+          if (options.debug) {
+            console.warn(file + ' is not a .jade file!');
+          }
           return;
         }
         var data = fs.readFileSync(path.resolve(dir, file), 'utf8');
@@ -28,7 +30,9 @@ module.exports = function(app, opts) {
           filename: path.join(dir, file)
         });
         app.cache[key] = template;
-        // console.log(filepath + ' compiled, put in cache (key): ' + key);
+        if (options.debug) {
+          console.log('template compiled, put in cache (key): ' + key);
+        }
       });
     };
     compileJadeFromDir(app.get('views'));
