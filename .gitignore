@@ -1,0 +1,5 @@
+npm-debug.log
+/test/fixture/tmp_teplates
+/node_modules
+/coverage
+.DS_Store

@@ -1,0 +1,37 @@
+var path = require('path');
+var fs = require('fs');
+var jade = require('jade');
+
+module.exports = function(app, opts) {
+  if ( ! app.enabled('view cache')) {
+    return app;
+  }
+  var options = Object.assign({
+    jadeExt: 'jade'
+  }, opts);
+  app.on('mount', function() {
+    var compileJadeFromDir = function(dir) {
+      var files = fs.readdirSync(dir);
+      files.forEach(function(file) {
+        var filepath = path.join(dir, file);
+        if (fs.statSync(filepath).isDirectory()) {
+          compileJadeFromDir(filepath);
+          return;
+        }
+        if (path.extname(filepath) !== options.jadeExt) {
+          // console.warn(file + ' is not a jade file');
+          return;
+        }
+        var data = fs.readFileSync(path.resolve(dir, file), 'utf8');
+        var key = path.join(path.dirname(filepath), path.basename(filepath, options.jadeExt));
+        var template = jade.compile(data, {
+          filename: path.join(dir, file)
+        });
+        app.cache[key] = template;
+        // console.log(filepath + ' compiled, put in cache (key): ' + key);
+      });
+    };
+    compileJadeFromDir(app.get('views'));
+  });
+  return app;
+};
