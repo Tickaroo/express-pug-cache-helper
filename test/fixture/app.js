@@ -4,6 +4,7 @@ var jadeCacheHelper = require('../../');
 module.exports = function(skipCache){
   var app = express();
   var indexApp = express();
+
   if ( ! skipCache) {
     indexApp.enable('view cache');
   }
