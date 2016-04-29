@@ -24,11 +24,8 @@ module.exports = function(app, opts) {
           }
           return;
         }
-        var data = fs.readFileSync(path.resolve(dir, file), 'utf8');
         var key = path.join(path.dirname(filepath), path.basename(filepath, options.jadeExt));
-        var template = jade.compile(data, {
-          filename: path.join(dir, file)
-        });
+        var template = jade.compileFile(path.resolve(dir, file));
         app.cache[key] = template;
         if (options.debug) {
           console.log('template compiled, put in cache (key): ' + key);
