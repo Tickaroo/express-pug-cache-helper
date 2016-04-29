@@ -1,6 +1,6 @@
 {
   "name": "express-jade-cache-helper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "express helper that caches all .jade files to memory on startup",
   "main": "index.js",
   "directories": {
