@@ -1,4 +1,5 @@
 npm-debug.log
+/test/fixture/tmp_templates
 /node_modules
 /coverage
 .DS_Store
