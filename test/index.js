@@ -2,7 +2,6 @@ var fs = require('fs');
 var expect = require('chai').expect;
 var superagent = require('superagent');
 var app = require('./fixture/app.js');
-var ncp = require('ncp').ncp;
 var fse = require('fs-extra');
 
 describe('express-jade-cache-helper', function() {
