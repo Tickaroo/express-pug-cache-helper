@@ -34,8 +34,8 @@ app.listen(3000);
 
 `jadeCacheHelper(expressApp, options)`:
 
-- options:
-  - **expressApp**: express app, important: it needs to fire `'mount'` event
+- **expressApp**: express app, important: it needs to fire `'mount'` event
+- **options**:
   - **jadeExt**: Template file name extension (default `'.jade'`)
 
 
