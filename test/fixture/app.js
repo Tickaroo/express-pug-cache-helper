@@ -1,5 +1,6 @@
 var express = require('express');
 var jadeCacheHelper = require('../../');
+var debug = require('debug')('ejch:test-app:error-middleware-stacktrace');
 
 module.exports = function(skipCache){
   var app = express();
@@ -21,7 +22,7 @@ module.exports = function(skipCache){
   app.use(jadeCacheHelper(indexApp));
   app.use(function(err, req, res, next){
     if ( ! skipCache) {
-      console.log(err);
+      debug(err);
     }
     res.send('ERROR');
   });

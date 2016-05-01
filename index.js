@@ -1,7 +1,7 @@
 var path = require('path');
 var fs = require('fs');
 var jade = require('jade');
-var debug = require('debug')('jade-cache');
+var debug = require('debug')('ejch:cache');
 
 module.exports = function(app, opts) {
   var options = Object.assign({

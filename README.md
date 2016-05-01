@@ -41,4 +41,4 @@ app.listen(3000);
 
 ## Options
 
-Use `DEBUG=jade-cache` to debug with [debug](https://www.npmjs.com/package/debug).
+Use `DEBUG=ejch:cache` to debug with [debug](https://www.npmjs.com/package/debug).
