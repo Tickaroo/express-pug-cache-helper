@@ -8,22 +8,37 @@ module.exports = function(app, opts) {
     jadeExt: '.jade' // the leading dot is very important
   }, opts);
   app.on('mount', function() {
-    var compileJadeFromDir = function(dir) {
+    if ( ! app.enabled('view cache')) {
+      return;
+    }
+    var compileJadeFromDir = function(dir, subDir) {
       var files = fs.readdirSync(dir);
       files.forEach(function(file) {
         var filepath = path.join(dir, file);
         if (fs.statSync(filepath).isDirectory()) {
-          compileJadeFromDir(filepath);
+          compileJadeFromDir(filepath, file);
           return;
         }
         if (path.extname(filepath) !== options.jadeExt) {
           debug(file + ' is not a .jade file!');
           return;
         }
-        var key = path.join(path.dirname(filepath), path.basename(filepath, options.jadeExt));
-        var template = jade.compileFile(path.resolve(dir, file));
-        app.cache[key] = template;
-        debug('template compiled, put in cache (key): ' + key);
+
+        jade.compileFile(filepath, {cache: true});
+
+        var fileKey = path.basename(filepath, options.jadeExt);
+        if (subDir) {
+          fileKey = path.join(subDir, fileKey);
+        }
+        var View = app.get('view');
+
+        app.cache[fileKey] = new View(fileKey, {
+          defaultEngine: app.get('view engine'),
+          root: app.get('views'),
+          engines: app.engines
+        });
+
+        debug('template compiled, put in cache (key): ' + fileKey);
       });
     };
     compileJadeFromDir(app.get('views'));
