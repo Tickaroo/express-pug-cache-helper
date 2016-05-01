@@ -33,7 +33,7 @@ describe('express-jade-cache-helper', function() {
   // WARNING: this test doesn't and it doesn't care if we do `app(true)` or `app()`
   it('should render "sub home"', function(done) {
     var server = app().listen(1234, function() {
-      fs.unlink(templateDir + 'tmp_templates/sub/test.jade', function(e){
+      fs.unlink(templateDir + 'tmp_templates/sub/test.jade', function(){
         superagent.get('http://localhost:1234/sub_home').end(function(err, res){
           server.close(function(){
             expect(res.text).to.equal('<p>test sub</p>');
