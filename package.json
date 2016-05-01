@@ -22,10 +22,10 @@
     "chai": "^3.5.0",
     "codecov.io": "^0.1.6",
     "express": "^4.13.3",
+    "fs-extra": "^0.30.0",
     "istanbul": "^0.4.0",
     "jshint": "^2.9.1",
     "mocha": "^2.4.5",
-    "ncp": "^2.0.0",
     "superagent": "^1.7.2"
   },
   "keywords": [

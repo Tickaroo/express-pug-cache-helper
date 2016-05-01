@@ -18,6 +18,9 @@ module.exports = function(skipCache){
   indexApp.get('/sub_home', function(req, res, next){
     res.render('sub/test');
   });
+  indexApp.get('/sub_mega_home', function(req, res, next){
+    res.render('sub/mega/test');
+  });
 
   app.use(jadeCacheHelper(indexApp));
   app.use(function(err, req, res, next){

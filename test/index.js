@@ -3,6 +3,7 @@ var expect = require('chai').expect;
 var superagent = require('superagent');
 var app = require('./fixture/app.js');
 var ncp = require('ncp').ncp;
+var fse = require('fs-extra');
 
 describe('express-jade-cache-helper', function() {
   this.slow(200);
@@ -10,13 +11,8 @@ describe('express-jade-cache-helper', function() {
   var templateDir = __dirname + '/fixture/';
 
   beforeEach(function(done) {
-    ncp(templateDir + 'master_templates', templateDir + 'tmp_templates', function(){
-      ncp(templateDir + 'master_templates/sub', templateDir + 'tmp_templates/sub', function(){
-        setTimeout(function(){
-          done();
-        }, 10);
-      });
-    });
+    fse.copySync(templateDir + 'master_templates', templateDir + 'tmp_templates');
+    done();
   });
 
   it('should render "home"', function(done) {
@@ -56,6 +52,21 @@ describe('express-jade-cache-helper', function() {
           superagent.get('http://localhost:1234/sub_home').end(function(err, res){
             server.close(function(){
               expect(res.text).to.equal('ERROR');
+              done();
+            });
+          });
+        });
+      }, 10);
+    });
+  });
+
+  it('should render "sub mega home"', function(done) {
+    var server = app().listen(1234, function() {
+      setTimeout(function(){
+        fs.unlink(templateDir + 'tmp_templates/sub/mega/test.jade', function(){
+          superagent.get('http://localhost:1234/sub_mega_home').end(function(err, res){
+            server.close(function(){
+              expect(res.text).to.equal('<p>mega test</p>');
               done();
             });
           });

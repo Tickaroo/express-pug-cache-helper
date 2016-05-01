@@ -16,7 +16,7 @@ module.exports = function(app, opts) {
       files.forEach(function(file) {
         var filepath = path.join(dir, file);
         if (fs.statSync(filepath).isDirectory()) {
-          compileJadeFromDir(filepath, file);
+          compileJadeFromDir(filepath, path.join(subDir, file));
           return;
         }
         if (path.extname(filepath) !== options.jadeExt) {
@@ -26,10 +26,7 @@ module.exports = function(app, opts) {
 
         jade.compileFile(filepath, {cache: true});
 
-        var fileKey = path.basename(filepath, options.jadeExt);
-        if (subDir) {
-          fileKey = path.join(subDir, fileKey);
-        }
+        var fileKey = path.join(subDir, path.basename(filepath, options.jadeExt));
         var View = app.get('view');
 
         app.cache[fileKey] = new View(fileKey, {
@@ -41,7 +38,7 @@ module.exports = function(app, opts) {
         debug('template compiled, put in cache (key): ' + fileKey);
       });
     };
-    compileJadeFromDir(app.get('views'));
+    compileJadeFromDir(app.get('views'), '');
   });
   return app;
 };
