@@ -19,5 +19,12 @@ module.exports = function(skipCache){
   });
 
   app.use(jadeCacheHelper(indexApp));
+  app.use(function(err, req, res, next){
+    if ( ! skipCache) {
+      console.log(err);
+    }
+    res.send('ERROR');
+  });
+
   return app;
 };
