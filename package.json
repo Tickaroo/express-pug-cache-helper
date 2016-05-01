@@ -36,5 +36,8 @@
     "jade"
   ],
   "author": "Anton Pawlik <anton.pawlik@gmail.com> (http://antpaw.org)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^2.2.0"
+  }
 }
