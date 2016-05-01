@@ -30,8 +30,15 @@ app.use(jadeCacheHelper(adminApp)); // <= important part
 app.listen(3000);
 ```
 
-## Thrown Error Object
+## API
 
-Variables provided with the error object:
+`jadeCacheHelper(expressApp, options)`:
 
-- `err.status` HTTP statusCode `403`
+- options:
+  - **expressApp**: express app, important: it needs to fire `'mount'` event
+  - **jadeExt**: Template file name extension (default `'.jade'`)
+
+
+## Options
+
+Use `DEBUG=jade-cache` to debug with [debug](https://www.npmjs.com/package/debug).
