@@ -1,7 +1,7 @@
 {
-  "name": "express-jade-cache-helper",
+  "name": "express-pug-cache-helper",
   "version": "1.0.4",
-  "description": "express helper that caches all .jade files to memory on startup",
+  "description": "express helper that caches all .pug files to memory on startup",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -16,10 +16,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com/Tickaroo/express-jade-cache-helper.git"
+    "url": "git@github.com/Tickaroo/express-pug-cache-helper.git"
   },
   "peerDependencies": {
-    "jade": "1.11.0"
+    "pug": "2.0.0-beta5"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -36,7 +36,7 @@
     "expressjs",
     "helper",
     "cache",
-    "jade"
+    "pug"
   ],
   "author": "Anton Pawlik <anton.pawlik@gmail.com> (http://antpaw.org)",
   "license": "MIT",

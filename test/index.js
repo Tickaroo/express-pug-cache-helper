@@ -4,7 +4,7 @@ var superagent = require('superagent');
 var app = require('./fixture/app.js');
 var fse = require('fs-extra');
 
-describe('express-jade-cache-helper', function() {
+describe('express-pug-cache-helper', function() {
   this.slow(200);
 
   var templateDir = __dirname + '/fixture/';
@@ -17,7 +17,7 @@ describe('express-jade-cache-helper', function() {
   it('should render "home"', function(done) {
     var server = app().listen(1234, function() {
       setTimeout(function(){
-        fs.unlink(templateDir + 'tmp_templates/show.jade', function(){
+        fs.unlink(templateDir + 'tmp_templates/show.pug', function(){
           superagent.get('http://localhost:1234/home').end(function(err, res){
             server.close(function(){
               expect(res.text).to.equal('<p>test</p>');
@@ -32,7 +32,7 @@ describe('express-jade-cache-helper', function() {
   it('should render "sub home"', function(done) {
     var server = app().listen(1234, function() {
       setTimeout(function(){
-        fs.unlink(templateDir + 'tmp_templates/sub/test.jade', function(){
+        fs.unlink(templateDir + 'tmp_templates/sub/test.pug', function(){
           superagent.get('http://localhost:1234/sub_home').end(function(err, res){
             server.close(function(){
               expect(res.text).to.equal('<p>test sub</p>');
@@ -47,7 +47,7 @@ describe('express-jade-cache-helper', function() {
   it('should not render "sub home"', function(done) {
     var server = app(true).listen(1234, function() {
       setTimeout(function(){
-        fs.unlink(templateDir + 'tmp_templates/sub/test.jade', function(){
+        fs.unlink(templateDir + 'tmp_templates/sub/test.pug', function(){
           superagent.get('http://localhost:1234/sub_home').end(function(err, res){
             server.close(function(){
               expect(res.text).to.equal('ERROR');
@@ -62,7 +62,7 @@ describe('express-jade-cache-helper', function() {
   it('should render "sub mega home"', function(done) {
     var server = app().listen(1234, function() {
       setTimeout(function(){
-        fs.unlink(templateDir + 'tmp_templates/sub/mega/test.jade', function(){
+        fs.unlink(templateDir + 'tmp_templates/sub/mega/test.pug', function(){
           superagent.get('http://localhost:1234/sub_mega_home').end(function(err, res){
             server.close(function(){
               expect(res.text).to.equal('<p>mega test</p>');
@@ -77,8 +77,8 @@ describe('express-jade-cache-helper', function() {
   var loadSite = function(done, skipCache, expectedHtml){
     var server = app(skipCache).listen(1234, function() {
       setTimeout(function(){
-        fs.unlink(templateDir + 'tmp_templates/show.jade', function(){
-          fs.rename(templateDir + 'tmp_templates/other_show.jade', templateDir + 'tmp_templates/show.jade', function(){
+        fs.unlink(templateDir + 'tmp_templates/show.pug', function(){
+          fs.rename(templateDir + 'tmp_templates/other_show.pug', templateDir + 'tmp_templates/show.pug', function(){
             superagent.get('http://localhost:1234/home').end(function(err, res){
               server.close(function(){
                 expect(res.text).to.equal(expectedHtml);

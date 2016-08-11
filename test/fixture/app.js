@@ -1,5 +1,5 @@
 var express = require('express');
-var jadeCacheHelper = require('../../');
+var pugCacheHelper = require('../../');
 var debug = require('debug')('ejch:test-app:error-middleware-stacktrace');
 
 module.exports = function(skipCache){
@@ -10,7 +10,7 @@ module.exports = function(skipCache){
     indexApp.enable('view cache');
   }
 
-  indexApp.set('view engine', 'jade');
+  indexApp.set('view engine', 'pug');
   indexApp.set('views', __dirname + '/tmp_templates');
   indexApp.get('/home', function(req, res, next){
     res.render('show');
@@ -22,7 +22,7 @@ module.exports = function(skipCache){
     res.render('sub/mega/test');
   });
 
-  app.use(jadeCacheHelper(indexApp));
+  app.use(pugCacheHelper(indexApp));
   app.use(function(err, req, res, next){
     if ( ! skipCache) {
       debug(err);
