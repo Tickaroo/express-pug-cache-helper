@@ -1,6 +1,6 @@
 {
   "name": "express-pug-cache-helper",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "express helper that caches all .pug files to memory on startup",
   "main": "index.js",
   "directories": {
