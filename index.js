@@ -7,6 +7,9 @@ module.exports = function(app, opts) {
   var options = Object.assign({
     pugExt: '.pug' // the leading dot is very important
   }, opts);
+  if (options.force) {
+    app.set('view cache', true);
+  }
   app.on('mount', function() {
     if ( ! app.enabled('view cache')) {
       return;

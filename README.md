@@ -26,7 +26,7 @@ indexApp.get('/home', function(req, res, next){
   res.render('show');
 });
 
-app.use(pugCacheHelper(adminApp)); // <= important part
+app.use(pugCacheHelper(adminApp), {force: true}); // <= important part
 app.listen(3000);
 ```
 
@@ -36,6 +36,8 @@ app.listen(3000);
 
 - **expressApp**: express app, important: it needs to fire `'mount'` event
 - **options**:
+  - **force**: Forces express `view cache` setting to `true` (default `undefined`)
+  - **pugCompileOptions**: Options object handed over to `pug.compileFile` (default `{cache: true}`)
   - **pugExt**: Template file name extension (default `'.pug'`)
 
 
