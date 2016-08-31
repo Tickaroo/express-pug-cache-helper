@@ -11,6 +11,7 @@ module.exports = function(app, opts) {
     if ( ! app.enabled('view cache')) {
       return;
     }
+    var compileSettings = Object.assign({cache: true}, options.pugCompileOptions);
     var compilePugFromDir = function(dir, subDir) {
       var files = fs.readdirSync(dir);
       files.forEach(function(file) {
@@ -24,7 +25,7 @@ module.exports = function(app, opts) {
           return;
         }
 
-        pug.compileFile(filepath, {cache: true});
+        pug.compileFile(filepath, compileSettings);
 
         var fileKey = path.join(subDir, path.basename(filepath, options.pugExt));
         var View = app.get('view');
