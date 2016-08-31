@@ -2,7 +2,7 @@ var express = require('express');
 var pugCacheHelper = require('../../');
 var debug = require('debug')('ejch:test-app:error-middleware-stacktrace');
 
-module.exports = function(skipCache){
+module.exports = function(skipCache, forceCache){
   var app = express();
   var indexApp = express();
 
@@ -21,8 +21,11 @@ module.exports = function(skipCache){
   indexApp.get('/sub_mega_home', function(req, res, next){
     res.render('sub/mega/test');
   });
+  indexApp.get('/base', function(req, res, next){
+    res.render('base');
+  });
 
-  app.use(pugCacheHelper(indexApp));
+  app.use(pugCacheHelper(indexApp, {force: forceCache, pugCompileOptions: {basedir: __dirname}}));
   app.use(function(err, req, res, next){
     if ( ! skipCache) {
       debug(err);
