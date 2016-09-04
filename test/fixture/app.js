@@ -1,6 +1,6 @@
 var express = require('express');
 var pugCacheHelper = require('../../');
-var debug = require('debug')('ejch:test-app:error-middleware-stacktrace');
+var debug = require('debug')('epch:test-app:error-middleware-stacktrace');
 
 module.exports = function(skipCache, forceCache){
   var app = express();

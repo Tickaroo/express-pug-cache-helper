@@ -1,7 +1,7 @@
 var path = require('path');
 var fs = require('fs');
 var pug = require('pug');
-var debug = require('debug')('ejch:cache');
+var debug = require('debug')('epch:cache');
 
 module.exports = function(app, opts) {
   var options = Object.assign({

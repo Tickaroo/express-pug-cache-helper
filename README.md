@@ -43,4 +43,4 @@ app.listen(3000);
 
 ## Options
 
-Use `DEBUG=ejch:cache` to debug with [debug](https://www.npmjs.com/package/debug).
+Use `DEBUG=epch:cache` to debug with [debug](https://www.npmjs.com/package/debug).
