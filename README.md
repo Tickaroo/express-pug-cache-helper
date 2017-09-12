@@ -1,3 +1,5 @@
+## DEPRECATED - please use [pre-cache-pug-views](https://github.com/ladjs/pre-cache-pug-views) instead, thanks!
+
 # express-pug-cache-helper
 [![npm version](https://badge.fury.io/js/express-pug-cache-helper.svg)](https://www.npmjs.com/package/express-pug-cache-helper) [![Build Status](https://travis-ci.org/Tickaroo/express-pug-cache-helper.svg?branch=master)](https://travis-ci.org/Tickaroo/express-pug-cache-helper) [![codecov.io](https://codecov.io/github/Tickaroo/express-pug-cache-helper/coverage.svg?branch=master)](https://codecov.io/github/Tickaroo/express-pug-cache-helper?branch=master)
 
